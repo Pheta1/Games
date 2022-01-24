@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/slimselect.min.css' %}" />
+<script src="{% static 'js/slimselect.min.js' %}"></script>
+
+<section class="content-header">
+  <div class="container-fluid">
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert" role="alert">
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+
+    {% if form.errors %}
+      <div class="alert alert-error" role="alert">
+        {{ form.errors }}
+      </div>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+      <div class="alert alert-error" role="alert">
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Insertion nombre de quilles touchées</h3>
+          </div>
+          <!-- /.card-header -->
+          {% if bowling.is_finished %}
+
+            <div class="card-footer text-center">
+              <a href="{% url 'bowlings:start' %}">
+                  <button type="button" class="btn btn-primary"> Nouvelle Partie </button>
+              </a>
+              <a href="{% url 'bowlings:details' bowling.pk %}" target="_"><input type="button"  value="Voire les scores" class="btn btn-primary/></a>
+            </div>
+          {% else %}
+              <!-- form start -->
+              <form method="POST" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card-body ml-lg-5 mr-lg-5">
+                 <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                      Nom du joueur
+                    </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input id="gamer" type="text" value="{{form.gamer.field.initial}}" name="{{ form.gamer.name }}" readonly>
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                      Frame numéro:
+                    </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input id="frame_num" type="number" value="{{form.frame_number.field.initial}}"  name="{{ form.frame_number.name }}" readonly>
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                      Lancer numéro:
+                    </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input id="lancer_num" type="number" value="{{form.lancer_number.field.initial}}"  name="{{ form.lancer_number.name }}" readonly>
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                    <label  class="col-sm-3 col-form-label">
+                      Quilles touchées:
+                    </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input id="number" type="number" value="0" step="1" min="0" max="{{ nombre_quilles }}" name="{{ form.lancer_score.name }}" >
+                     </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer text-center">
+                  <button type="submit" class="btn btn-primary">Enregistrer</button>
+                  <a href="{% url 'bowlings:details' bowling.pk %}" target="_"><input type="button"  value="Voire les scores" class="btn btn-primary/></a>
+                </div>
+              </form>
+            {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+{% endblock content %}
