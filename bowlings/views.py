@@ -25,7 +25,6 @@ class ScoreView(TemplateView):
         score_list_data = []
         
         while frame_number <= 5:
-            print(frame_number, score_init, score)
             score_l, score = self.define_score(frame_number, score_init, bowling)
             if score == score_init:
                 score_data.append("")
@@ -35,8 +34,6 @@ class ScoreView(TemplateView):
                 score_list_data.append(score_)
             score_init = score
             frame_number += 1
-
-        print(frame_number, score_init, score)
 
         context.update({
             'bowling': bowling,
@@ -104,13 +101,11 @@ class ScoreView(TemplateView):
                             frame=frame,
                             is_additional=True
                         )
-                        print(lancer_additional)
                         for lancer_add in lancer_additional:
                             index = lancer_add.lancer_number - 1
                             score_l[index] = lancer_add.lancer_score
         except Exception as e:
             pass
-        print(score_l, score)
 
         return score_l, score
 

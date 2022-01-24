@@ -13,10 +13,6 @@ class Bowling(models.Model):
     score_final = models.IntegerField(
         verbose_name='Score Finale',
         default=0,
-        validators=[
-            MaxValueValidator(300),
-            MinValueValidator(0)
-        ]
     )
     is_finished = models.BooleanField(
         default=False,
@@ -61,10 +57,6 @@ class Lancer(models.Model):
     lancer_score = models.IntegerField(
         verbose_name='Nombre de quilles touchées',
         default=0,
-        validators=[
-            MaxValueValidator(15),
-            MinValueValidator(0)
-        ]
     )
     is_additional = models.BooleanField(
         default=False

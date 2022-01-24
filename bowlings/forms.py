@@ -27,17 +27,14 @@ class UpdateBowlingScoreForm(forms.Form):
 
     frame_number = forms.IntegerField(
         required=False,
-        label="Nom"
     )
 
     lancer_number = forms.IntegerField(
         required=False,
-        label="Prénom"
     )
 
     gamer = forms.CharField(
         required=False,
-        label="Pseudo"
     )
 
     lancer_score = forms.IntegerField(
